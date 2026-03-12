@@ -1,40 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
   <info>
-   <title>Nature (titles, no DOI)</title>
-    <id>http://csl.mendeley.com/styles/18115641/nature-22</id>
+    <title>Nature (titles, no DOI)</title>
+    <id>http://csl.mendeley.com/styles/18115641/nature-no-doi</id>
     <link href="http://www.zotero.org/styles/nature" rel="self"/>
-    <link href="https://www.nature.com/nature/for-authors/formatting-guide" rel="documentation"/>
     <author>
       <name>Michael Berkowitz</name>
-      <email>mberkowi@gmu.edu</email>
     </author>
-    <contributor>
-      <name>Patrick O'Brien</name>
-      <email>citationstyler@gmail.com</email>
-    </contributor>
-    <contributor>
-      <name>Vanessa Lundin</name>
-      <uri></uri>
-    </contributor>
     <category citation-format="numeric"/>
     <category field="science"/>
     <category field="generic-base"/>
-    <issn>0028-0836</issn>
-    <eissn>1476-4687</eissn>
-    <updated>2026-03-12T10:38:15+00:00</updated>
-    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+    <updated>2026-03-12</updated>
   </info>
+
   <macro name="title">
     <choose>
       <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-        <text variable="title" font-style="italic" text-case="title"/>
+        <text variable="title" font-style="italic"/>
       </if>
+      <else-if type="chapter" match="any"/>
       <else>
         <text variable="title"/>
       </else>
     </choose>
   </macro>
+
   <macro name="author">
     <names variable="author">
       <name sort-separator=", " delimiter=", " and="symbol" initialize-with=". " delimiter-precedes-last="never" name-as-sort-order="all"/>
@@ -42,72 +32,43 @@
       <et-al font-style="italic"/>
     </names>
   </macro>
-<macro name="access"/>
-  </macro>
-  <macro name="access-data">
+
+  <macro name="access">
     <choose>
-      <if type="dataset software" match="any">
-      </if>
+      <if variable="volume"/>
+      <else-if type="webpage" variable="URL" match="all">
+        <text term="available at" text-case="capitalize-first" suffix=": "/>
+        <text variable="URL" suffix=". "/>
+        <group prefix="(" suffix=")" delimiter=": ">
+          <text term="accessed" text-case="capitalize-first"/>
+          <date variable="accessed">
+            <date-part name="day" suffix=" " form="ordinal"/>
+            <date-part name="month" suffix=" "/>
+            <date-part name="year"/>
+          </date>
+        </group>
+      </else-if>
     </choose>
   </macro>
+
   <macro name="issuance">
     <choose>
-      <if type="bill book graphic legal_case legislation motion_picture song thesis chapter paper-conference" match="any">
-        <group delimiter="; " suffix=".">
-          <group delimiter=", " prefix="(" suffix=")">
-            <text variable="publisher" form="long"/>
-            <text variable="publisher-place"/>
-            <date variable="issued">
-              <date-part name="year"/>
-            </date>
-          </group>
+      <if type="bill book graphic legal_case legislation motion_picture report song thesis chapter paper-conference" match="any">
+        <group delimiter=", " prefix="(" suffix=").">
+          <text variable="publisher" form="long"/>
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
         </group>
       </if>
-      <else-if type="article">
-        <group delimiter=" ">
-          <choose>
-            <if variable="genre" match="any">
-              <text variable="genre" text-case="capitalize-first"/>
-            </if>
-            <else>
-              <text term="preprint" text-case="capitalize-first"/>
-            </else>
-          </choose>
-          <text term="at"/>
-              <text variable="URL"/>
-          <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
-        </group>
-      </else-if>
-      <else-if type="dataset software" match="any">
-        <group delimiter=" ">
-          <text variable="publisher"/>
-          <text macro="access-data"/>
-          <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
-        </group>
-      </else-if>
-      <else-if type="report webpage post post-weblog" match="any">
-        <group delimiter=" ">
-          <text variable="URL"/>
-          <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
-        </group>
-      </else-if>
-      <else-if type="article-journal" match="any">
-        <group delimiter=" ">
-          <choose>
-            <if match="none" variable="volume page">
-                  <text variable="URL"/>
-            </if>
-          </choose>
-          <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
-        </group>
-      </else-if>
       <else>
-        <date variable="issued" prefix="(" suffix=")">
+        <date prefix="(" suffix=")." variable="issued">
           <date-part name="year"/>
         </date>
       </else>
     </choose>
   </macro>
+
   <macro name="container-title">
     <choose>
       <if type="article-journal">
@@ -118,6 +79,7 @@
       </else>
     </choose>
   </macro>
+
   <macro name="editor">
     <choose>
       <if type="chapter paper-conference" match="any">
@@ -128,19 +90,7 @@
       </if>
     </choose>
   </macro>
-  <macro name="volume">
-    <choose>
-      <if type="article-journal" match="any">
-       <text variable="volume" suffix=","/>
-      </if>
-      <else>
-        <group delimiter=" ">
-          <label variable="volume" form="short"/>
-          <text variable="volume"/>
-        </group>
-      </else>
-    </choose>
-  </macro>
+
   <citation collapse="citation-number">
     <sort>
       <key variable="citation-number"/>
@@ -149,7 +99,8 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="2" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="1">
+
+  <bibliography et-al-min="4" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="1">
     <layout suffix=".">
       <text variable="citation-number" suffix="."/>
       <group delimiter=" ">
@@ -162,7 +113,7 @@
         </choose>
         <text macro="container-title"/>
         <text macro="editor"/>
-        <text macro="volume"/>
+        <text variable="volume" suffix=","/>
         <text variable="page"/>
         <text macro="issuance"/>
         <text macro="access"/>
