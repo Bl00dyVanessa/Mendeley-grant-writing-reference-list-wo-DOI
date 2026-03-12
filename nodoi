@@ -18,7 +18,6 @@
       <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
         <text variable="title" font-style="italic"/>
       </if>
-      <else-if type="chapter" match="any"/>
       <else>
         <text variable="title"/>
       </else>
