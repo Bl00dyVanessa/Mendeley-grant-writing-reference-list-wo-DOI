@@ -42,7 +42,7 @@
       <et-al font-style="italic"/>
     </names>
   </macro>
-  <macro name="access">
+<macro name="access"/>
   </macro>
   <macro name="access-data">
     <choose>
@@ -95,12 +95,7 @@
         <group delimiter=" ">
           <choose>
             <if match="none" variable="volume page">
-              <choose>
-                </if>
-                <else>
                   <text variable="URL"/>
-                </else>
-              </choose>
             </if>
           </choose>
           <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
