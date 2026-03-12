@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
   <info>
-    <title>Nature - Vanessa Lundin</title>
+   <title>Nature (titles, no DOI)</title>
     <id>http://csl.mendeley.com/styles/18115641/nature-22</id>
     <link href="http://www.zotero.org/styles/nature" rel="self"/>
     <link href="https://www.nature.com/nature/for-authors/formatting-guide" rel="documentation"/>
@@ -43,10 +43,6 @@
     </names>
   </macro>
   <macro name="access">
-    <choose>
-      <if variable="volume" type="article dataset software" match="any"/>
-      </else-if>
-    </choose>
   </macro>
   <macro name="access-data">
     <choose>
@@ -78,12 +74,7 @@
             </else>
           </choose>
           <text term="at"/>
-          <choose>
-            </if>
-            <else>
               <text variable="URL"/>
-            </else>
-          </choose>
           <date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
         </group>
       </else-if>
@@ -145,7 +136,7 @@
   <macro name="volume">
     <choose>
       <if type="article-journal" match="any">
-        <text variable="volume" font-weight="bold" suffix=","/>
+       <text variable="volume" suffix=","/>
       </if>
       <else>
         <group delimiter=" ">
@@ -163,7 +154,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="6" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="2">
+  <bibliography et-al-min="2" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="1">
     <layout suffix=".">
       <text variable="citation-number" suffix="."/>
       <group delimiter=" ">
