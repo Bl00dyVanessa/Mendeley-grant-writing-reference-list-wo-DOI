@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" demote-non-dropping-particle="sort-only" default-locale="en-GB">
+
   <info>
     <title>Nature (titles, no DOI)</title>
     <id>http://example.com/styles/nature-no-doi</id>
-    <link href="http://example.com/styles/nature-no-doi" rel="self"/>
+
+    <link rel="self" href="http://example.com/styles/nature-no-doi"/>
+
     <author>
       <name>Michael Berkowitz</name>
     </author>
+
     <category citation-format="numeric"/>
     <category field="science"/>
     <category field="generic-base"/>
-    <updated>2026-03-12</updated>
+
+    <updated>2026-03-12T00:00:00Z</updated>
   </info>
 
   <macro name="title">
@@ -26,10 +31,46 @@
 
   <macro name="author">
     <names variable="author">
-      <name sort-separator=", " delimiter=", " and="symbol" initialize-with=". " delimiter-precedes-last="never" name-as-sort-order="all"/>
+      <name and="symbol" initialize-with=". " sort-separator=", " delimiter=", " delimiter-precedes-last="never" name-as-sort-order="all"/>
       <label form="short" prefix=", "/>
       <et-al font-style="italic"/>
     </names>
+  </macro>
+
+  <macro name="editor">
+    <names variable="editor" prefix="(" suffix=")">
+      <label form="short" suffix=" "/>
+      <name and="symbol" initialize-with=". " delimiter-precedes-last="never" name-as-sort-order="all"/>
+    </names>
+  </macro>
+
+  <macro name="container-title">
+    <choose>
+      <if type="article-journal">
+        <text variable="container-title" form="short" font-style="italic"/>
+      </if>
+      <else>
+        <text variable="container-title" font-style="italic"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="issuance">
+    <choose>
+      <if type="bill book graphic legal_case legislation motion_picture report song thesis chapter paper-conference" match="any">
+        <group delimiter=", " prefix="(" suffix=").">
+          <text variable="publisher"/>
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
+        </group>
+      </if>
+      <else>
+        <date variable="issued" prefix="(" suffix=").">
+          <date-part name="year"/>
+        </date>
+      </else>
+    </choose>
   </macro>
 
   <macro name="access">
@@ -40,7 +81,7 @@
         <group prefix="(" suffix=")" delimiter=": ">
           <text term="accessed" text-case="capitalize-first"/>
           <date variable="accessed">
-            <date-part name="day" suffix=" " form="ordinal"/>
+            <date-part name="day" form="ordinal" suffix=" "/>
             <date-part name="month" suffix=" "/>
             <date-part name="year"/>
           </date>
@@ -49,51 +90,11 @@
     </choose>
   </macro>
 
-  <macro name="issuance">
-    <choose>
-      <if type="bill book graphic legal_case legislation motion_picture report song thesis chapter paper-conference" match="any">
-        <group delimiter=", " prefix="(" suffix=").">
-          <text variable="publisher" form="long"/>
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-        </group>
-      </if>
-      <else>
-        <date prefix="(" suffix=")." variable="issued">
-          <date-part name="year"/>
-        </date>
-      </else>
-    </choose>
-  </macro>
-
-  <macro name="container-title">
-    <choose>
-      <if type="article-journal">
-        <text variable="container-title" font-style="italic" form="short"/>
-      </if>
-      <else>
-        <text variable="container-title" font-style="italic"/>
-      </else>
-    </choose>
-  </macro>
-
-  <macro name="editor">
-    <choose>
-      <if type="chapter paper-conference" match="any">
-        <names variable="editor" prefix="(" suffix=")">
-          <label form="short" suffix=" "/>
-          <name and="symbol" delimiter-precedes-last="never" initialize-with=". " name-as-sort-order="all"/>
-        </names>
-      </if>
-    </choose>
-  </macro>
-
   <citation collapse="citation-number">
     <sort>
       <key variable="citation-number"/>
     </sort>
-    <layout vertical-align="sup" delimiter=",">
+    <layout delimiter="," vertical-align="sup">
       <text variable="citation-number"/>
     </layout>
   </citation>
@@ -108,7 +109,7 @@
           <text value="."/>
         </group>
         <choose>
-          <if type="chapter paper-conference" match="any">
+          <if type="chapter paper-conference">
             <text term="in"/>
           </if>
         </choose>
@@ -121,4 +122,5 @@
       </group>
     </layout>
   </bibliography>
+
 </style>
