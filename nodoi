@@ -2,8 +2,8 @@
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
   <info>
     <title>Nature (titles, no DOI)</title>
-    <id>http://csl.mendeley.com/styles/18115641/nature-no-doi</id>
-    <link href="http://www.zotero.org/styles/nature" rel="self"/>
+  <id>http://example.com/styles/nature-no-doi</id>
+    <link href="http://www.zotero.org/styles/nature-no-doi" rel="self"/>
     <author>
       <name>Michael Berkowitz</name>
     </author>
@@ -34,7 +34,6 @@
 
   <macro name="access">
     <choose>
-      <if variable="volume"/>
       <else-if type="webpage" variable="URL" match="all">
         <text term="available at" text-case="capitalize-first" suffix=": "/>
         <text variable="URL" suffix=". "/>
@@ -104,7 +103,10 @@
       <text variable="citation-number" suffix="."/>
       <group delimiter=" ">
         <text macro="author" suffix="."/>
-        <text macro="title" suffix="."/>
+<group>
+  <text macro="title"/>
+  <text value="."/>
+</group>
         <choose>
           <if type="chapter paper-conference" match="any">
             <text term="in"/>
